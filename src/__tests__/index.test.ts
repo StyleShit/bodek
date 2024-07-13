@@ -1,8 +1,32 @@
-import { describe, expect, it } from 'vitest';
-import helloWorld from '../index';
+import { b } from '../index';
+import { describe, expect, expectTypeOf, it } from 'vitest';
 
-describe('Hello World', () => {
-	it('should return "Hello World!"', () => {
-		expect(helloWorld()).toBe('Hello World!');
+describe('Bodek', () => {
+	it('should parse strings', () => {
+		// Arrange.
+		const schema = b.string();
+
+		// Assert - valid.
+		const parsed = schema.parse('hello');
+
+		expect(parsed).toBe('hello');
+		expectTypeOf(parsed).toEqualTypeOf<string>();
+
+		// Assert - invalid.
+		expect(() => schema.parse(123)).toThrow('123 is not a string');
+	});
+
+	it('should parse numbers', () => {
+		// Arrange.
+		const schema = b.number();
+
+		// Assert - valid.
+		const parsed = schema.parse(123);
+
+		expect(parsed).toBe(123);
+		expectTypeOf(parsed).toEqualTypeOf<number>();
+
+		// Assert - invalid.
+		expect(() => schema.parse('hello')).toThrow('hello is not a number');
 	});
 });

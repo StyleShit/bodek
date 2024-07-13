@@ -19,6 +19,12 @@ export default tseslint.config(
 		},
 	},
 	{
+		rules: {
+			// We're gonna use a lot of those...
+			'@typescript-eslint/no-explicit-any': 'off',
+		},
+	},
+	{
 		ignores: [
 			'**/coverage/**',
 			'**/dist/**',
