@@ -48,6 +48,21 @@ describe('Bodek', () => {
 		expect(() => schema.parse('hello')).toThrow('hello is not a number');
 	});
 
+	it('should check numbers range', () => {
+		// Arrange.
+		const schema = b.number().min(3).max(5);
+
+		// Assert - valid.
+		const parsed = schema.parse(4);
+
+		expect(parsed).toBe(4);
+		expectTypeOf(parsed).toEqualTypeOf<number>();
+
+		// Assert - invalid.
+		expect(() => schema.parse(2)).toThrow('Number is too small (min 3)');
+		expect(() => schema.parse(6)).toThrow('Number is too big (max 5)');
+	});
+
 	it('should parse objects', () => {
 		// Arrange.
 		const schema = b.object({

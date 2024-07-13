@@ -10,4 +10,16 @@ export class NumberSchema extends Schema<number> {
 
 		return value;
 	}
+
+	min(length: number, message?: string) {
+		return this.refine((value) => value >= length, {
+			message: message || `Number is too small (min ${String(length)})`,
+		});
+	}
+
+	max(length: number, message?: string) {
+		return this.refine((value) => value <= length, {
+			message: message || `Number is too big (max ${String(length)})`,
+		});
+	}
 }
