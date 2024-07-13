@@ -101,6 +101,17 @@ describe('Bodek', () => {
 		}>();
 	});
 
+	it('should support custom errors', () => {
+		// Arrange.
+		const userNameSchema = b.string();
+		const errorMessage = 'Username must be a string';
+
+		// Act & Assert.
+		expect(() => userNameSchema.parse(123, errorMessage)).toThrow(
+			errorMessage,
+		);
+	});
+
 	it('should refine a schema', () => {
 		// Arrange.
 		const schema = b
