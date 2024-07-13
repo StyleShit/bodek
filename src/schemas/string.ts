@@ -10,4 +10,16 @@ export class StringSchema extends Schema<string> {
 
 		return value;
 	}
+
+	min(length: number, message?: string) {
+		return this.refine((value) => value.length >= length, {
+			message: message || `String is too short (min ${String(length)})`,
+		});
+	}
+
+	max(length: number, message?: string) {
+		return this.refine((value) => value.length <= length, {
+			message: message || `String is too long (max ${String(length)})`,
+		});
+	}
 }

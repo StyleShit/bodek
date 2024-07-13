@@ -16,6 +16,24 @@ describe('Bodek', () => {
 		expect(() => schema.parse(123)).toThrow('123 is not a string');
 	});
 
+	it('should check strings length', () => {
+		// Arrange.
+		const schema = b.string().min(3).max(5);
+
+		// Assert - valid.
+		const parsed = schema.parse('hello');
+
+		expect(parsed).toBe('hello');
+		expectTypeOf(parsed).toEqualTypeOf<string>();
+
+		// Assert - invalid.
+		expect(() => schema.parse('hi')).toThrow('String is too short (min 3)');
+
+		expect(() => schema.parse('world!')).toThrow(
+			'String is too long (max 5)',
+		);
+	});
+
 	it('should parse numbers', () => {
 		// Arrange.
 		const schema = b.number();
