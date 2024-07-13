@@ -1,0 +1,50 @@
+{
+	"name": "create-typescript-package",
+	"description": "A template project for creating TypeScript packages",
+	"version": "0.0.0",
+	"author": "StyleShit",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/StyleShit/create-typescript-package"
+	},
+	"type": "module",
+	"main": "dist/index.js",
+	"module": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"exports": {
+		".": {
+			"import": "./dist/index.js",
+			"require": "./dist/index.cjs",
+			"types": "./dist/index.d.ts"
+		},
+		"./package.json": "./package.json"
+	},
+	"files": [
+		"/dist",
+		"/src",
+		"!**/__tests__"
+	],
+	"scripts": {
+		"test": "vitest",
+		"test:coverage": "vitest run --coverage",
+		"lint": "concurrently -n eslint,tsc -c magenta,green \"eslint ./\" \"tsc\"",
+		"format": "prettier --write ./",
+		"format:check": "prettier --check ./",
+		"build": "tsup src/index.ts --format cjs,esm --dts",
+		"release": "npm run build && changeset publish"
+	},
+	"devDependencies": {
+		"@changesets/cli": "^2.27.6",
+		"@eslint/js": "^9.6.0",
+		"@vitest/coverage-v8": "^1.5.2",
+		"concurrently": "^8.2.2",
+		"eslint": "^8.57.0",
+		"globals": "^15.6.0",
+		"prettier": "^3.3.2",
+		"tsup": "^8.1.0",
+		"typescript": "^5.5.3",
+		"typescript-eslint": "^7.16.0",
+		"vitest": "^1.5.2"
+	}
+}
