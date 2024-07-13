@@ -4,6 +4,10 @@ type RefineParams = {
 	message?: string;
 };
 
+type SafeParseResult<T> =
+	| { success: true; data: T }
+	| { success: false; error: Error };
+
 export abstract class Schema<Type> {
 	private refinements: Array<{
 		validator: RefineValidator<Type>;
@@ -24,6 +28,22 @@ export abstract class Schema<Type> {
 		});
 
 		return parsed;
+	}
+
+	safeParse(value: unknown, message?: string): SafeParseResult<Type> {
+		try {
+			const data = this.parse(value, message);
+
+			return {
+				success: true,
+				data,
+			};
+		} catch (error) {
+			return {
+				success: false,
+				error: error as Error,
+			};
+		}
 	}
 
 	refine(validator: RefineValidator<Type>, params?: RefineParams) {

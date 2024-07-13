@@ -148,4 +148,25 @@ describe('Bodek', () => {
 		expect(() => schema.parse(-2)).toThrow('Number must be positive');
 		expect(() => schema.parse(3)).toThrow('Number must be even');
 	});
+
+	it('should support safe parsing', () => {
+		// Arrange.
+		const schema = b.number();
+
+		// Assert - valid.
+		expect(schema.safeParse(123)).toEqual({
+			success: true,
+			data: 123,
+		});
+
+		// Assert - invalid.
+		expect(schema.safeParse('hello')).toEqual({
+			success: false,
+			error: new Error('hello is not a number'),
+		});
+
+		expectTypeOf(schema.safeParse(123)).toEqualTypeOf<
+			{ success: true; data: number } | { success: false; error: Error }
+		>();
+	});
 });
