@@ -1,4 +1,4 @@
-import { b, Infer } from '../index';
+import { b, type Infer } from '../index';
 import { describe, expect, expectTypeOf, it } from 'vitest';
 
 describe('Bodek', () => {
@@ -30,13 +30,56 @@ describe('Bodek', () => {
 		expect(() => schema.parse('hello')).toThrow('hello is not a number');
 	});
 
+	it('should parse objects', () => {
+		// Arrange.
+		const schema = b.object({
+			foo: b.string(),
+			bar: b.number(),
+			nested: b.object({
+				baz: b.string(),
+			}),
+		});
+
+		// Assert - valid.
+		const parsed = schema.parse({
+			foo: 'hello',
+			bar: 123,
+			nested: { baz: 'world' },
+		});
+
+		expect(parsed).toEqual({
+			foo: 'hello',
+			bar: 123,
+			nested: { baz: 'world' },
+		});
+
+		expectTypeOf(parsed).toEqualTypeOf<{
+			foo: string;
+			bar: number;
+			nested: { baz: string };
+		}>();
+
+		// Assert - invalid.
+		expect(() => schema.parse({ foo: 'hello' })).toThrow('Missing key bar');
+	});
+
 	it('should infer types', () => {
 		// Arrange.
-		const stringSchema = b.string();
-		const numberSchema = b.number();
+		const schema = b.object({
+			foo: b.string(),
+			bar: b.number(),
+			nested: b.object({
+				baz: b.string(),
+			}),
+		});
 
 		// Assert.
-		expectTypeOf<Infer<typeof stringSchema>>().toEqualTypeOf<string>();
-		expectTypeOf<Infer<typeof numberSchema>>().toEqualTypeOf<number>();
+		type Inferred = Infer<typeof schema>;
+
+		expectTypeOf<Inferred>().toEqualTypeOf<{
+			foo: string;
+			bar: number;
+			nested: { baz: string };
+		}>();
 	});
 });

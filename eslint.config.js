@@ -22,6 +22,13 @@ export default tseslint.config(
 		rules: {
 			// We're gonna use a lot of those...
 			'@typescript-eslint/no-explicit-any': 'off',
+
+			'@typescript-eslint/no-invalid-void-type': [
+				'error',
+				{
+					allowAsThisParameter: true,
+				},
+			],
 		},
 	},
 	{
