@@ -10,7 +10,7 @@ export type ShapeToObject<Shape extends ShapeSchema> = {
 type Flatten<T> = T extends object ? { [K in keyof T]: T[K] } : T;
 
 export class ObjectSchema<Shape extends ShapeSchema> extends Schema<
-	ShapeToObject<Shape>
+	Flatten<ShapeToObject<Shape>>
 > {
 	constructor(private shape: Shape) {
 		super();
@@ -20,7 +20,7 @@ export class ObjectSchema<Shape extends ShapeSchema> extends Schema<
 		return new ObjectSchema(shape);
 	}
 
-	_parse(value: any, message?: string) {
+	_parse(value: unknown, message?: string) {
 		const defaultMessage = `${String(value)} is not an object`;
 
 		if (typeof value !== 'object' || !value || Array.isArray(value)) {
@@ -32,10 +32,9 @@ export class ObjectSchema<Shape extends ShapeSchema> extends Schema<
 				throw new Error(`Missing key ${key}`);
 			}
 
-			// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-			schema.parse(value[key]);
+			schema.parse(value[key as never]);
 		});
 
-		return value as Flatten<ShapeToObject<Shape>>;
+		return value as never;
 	}
 }

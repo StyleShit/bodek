@@ -1,7 +1,7 @@
 import { Schema } from './schema';
 
 export class StringSchema extends Schema<string> {
-	_parse(value: any, message?: string) {
+	_parse(value: unknown, message?: string) {
 		const defaultMessage = `${String(value)} is not a string`;
 
 		if (typeof value !== 'string') {

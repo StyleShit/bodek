@@ -20,7 +20,7 @@ export default tseslint.config(
 	},
 	{
 		rules: {
-			// We're gonna use a lot of those...
+			// We're gonna use some of those...
 			'@typescript-eslint/no-explicit-any': 'off',
 
 			'@typescript-eslint/no-invalid-void-type': [
