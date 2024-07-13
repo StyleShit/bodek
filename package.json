@@ -1,6 +1,6 @@
 {
 	"name": "bodek",
-	"description": "A zod-like schema validator ",
+	"description": "A zod-like schema validator, 100% type-safe",
 	"version": "0.0.0",
 	"author": "StyleShit",
 	"license": "MIT",
