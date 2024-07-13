@@ -94,6 +94,15 @@ describe('Bodek', () => {
 
 		// Assert - invalid.
 		expect(() => schema.parse({ foo: 'hello' })).toThrow('Missing key bar');
+
+		expect(() =>
+			schema.parse({
+				foo: 'hello',
+				bar: 123,
+				nested: { baz: 'world' },
+				extra: true,
+			}),
+		).toThrow('Unexpected excess key extra');
 	});
 
 	it('should infer types', () => {

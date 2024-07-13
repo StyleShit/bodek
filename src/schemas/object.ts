@@ -35,6 +35,12 @@ export class ObjectSchema<Shape extends ShapeSchema> extends Schema<
 			schema.parse(value[key as never]);
 		});
 
+		Object.keys(value).forEach((key) => {
+			if (!(key in this.shape)) {
+				throw new Error(`Unexpected excess key ${key}`);
+			}
+		});
+
 		return value as never;
 	}
 }
