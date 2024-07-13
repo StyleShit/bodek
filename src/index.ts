@@ -5,3 +5,5 @@ export const b = {
 	string: () => new StringSchema(),
 	number: () => new NumberSchema(),
 };
+
+export type { Infer } from './types';

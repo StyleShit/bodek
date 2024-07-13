@@ -1,4 +1,4 @@
-import { b } from '../index';
+import { b, Infer } from '../index';
 import { describe, expect, expectTypeOf, it } from 'vitest';
 
 describe('Bodek', () => {
@@ -28,5 +28,15 @@ describe('Bodek', () => {
 
 		// Assert - invalid.
 		expect(() => schema.parse('hello')).toThrow('hello is not a number');
+	});
+
+	it('should infer types', () => {
+		// Arrange.
+		const stringSchema = b.string();
+		const numberSchema = b.number();
+
+		// Assert.
+		expectTypeOf<Infer<typeof stringSchema>>().toEqualTypeOf<string>();
+		expectTypeOf<Infer<typeof numberSchema>>().toEqualTypeOf<number>();
 	});
 });
