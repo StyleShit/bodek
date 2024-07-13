@@ -82,4 +82,26 @@ describe('Bodek', () => {
 			nested: { baz: string };
 		}>();
 	});
+
+	it('should refine a schema', () => {
+		// Arrange.
+		const schema = b
+			.number()
+			.refine((value) => value > 0, {
+				message: 'Number must be positive',
+			})
+			.refine((value) => value % 2 === 0, {
+				message: 'Number must be even',
+			});
+
+		// Assert - valid.
+		const parsed = schema.parse(2);
+
+		expect(parsed).toBe(2);
+		expectTypeOf(parsed).toEqualTypeOf<number>();
+
+		// Assert - invalid.
+		expect(() => schema.parse(-2)).toThrow('Number must be positive');
+		expect(() => schema.parse(3)).toThrow('Number must be even');
+	});
 });
