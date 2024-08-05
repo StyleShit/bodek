@@ -1,5 +1,0 @@
----
-'bodek': patch
----
-
-Publish changelog

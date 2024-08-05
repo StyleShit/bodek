@@ -1,5 +1,11 @@
 # bodek
 
+## 0.0.2
+
+### Patch Changes
+
+- 62f8924: Publish changelog
+
 ## 0.0.1
 
 ### Patch Changes
