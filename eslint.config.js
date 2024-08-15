@@ -18,7 +18,17 @@ export default tseslint.config(
 		},
 	},
 	{
+		ignores: [
+			'**/coverage/**',
+			'**/dist/**',
+			'**/node_modules/**',
+			'**/__snapshots__/**',
+		],
+	},
+	{
 		rules: {
+			'no-console': 'error',
+
 			// We're gonna use some of those...
 			'@typescript-eslint/no-explicit-any': 'off',
 
@@ -29,13 +39,5 @@ export default tseslint.config(
 				},
 			],
 		},
-	},
-	{
-		ignores: [
-			'**/coverage/**',
-			'**/dist/**',
-			'**/node_modules/**',
-			'**/__snapshots__/**',
-		],
 	},
 );
