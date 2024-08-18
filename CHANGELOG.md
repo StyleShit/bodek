@@ -1,5 +1,11 @@
 # bodek
 
+## 0.0.3
+
+### Patch Changes
+
+- 777d6f6: Refactor types creation
+
 ## 0.0.2
 
 ### Patch Changes
