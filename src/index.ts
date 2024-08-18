@@ -3,8 +3,8 @@ import { StringSchema } from './schemas/string';
 import { ObjectSchema } from './schemas/object';
 
 export const b = {
-	string: () => new StringSchema(),
-	number: () => new NumberSchema(),
+	string: StringSchema.make,
+	number: NumberSchema.make,
 	object: ObjectSchema.make,
 };
 

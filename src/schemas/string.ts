@@ -1,6 +1,10 @@
 import { Schema } from './schema';
 
 export class StringSchema extends Schema<string> {
+	static make(this: void) {
+		return new StringSchema();
+	}
+
 	_parse(value: unknown, message?: string) {
 		const defaultMessage = `${String(value)} is not a string`;
 
