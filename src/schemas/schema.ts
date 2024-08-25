@@ -14,10 +14,10 @@ export abstract class Schema<Type> {
 		params: RefineParams;
 	}> = [];
 
-	abstract _parse(value: unknown, message?: string): Type;
+	abstract parseValue(value: unknown, message?: string): Type;
 
 	parse(value: unknown, message?: string) {
-		const parsed = this._parse(value, message);
+		const parsed = this.parseValue(value, message);
 
 		this.refinements.forEach(({ validator, params }) => {
 			const isValid = validator(parsed);

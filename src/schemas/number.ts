@@ -5,7 +5,7 @@ export class NumberSchema extends Schema<number> {
 		return new NumberSchema();
 	}
 
-	_parse(value: unknown, message?: string) {
+	parseValue(value: unknown, message?: string) {
 		const defaultMessage = `${String(value)} is not a number`;
 
 		if (typeof value !== 'number') {

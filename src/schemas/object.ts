@@ -20,7 +20,7 @@ export class ObjectSchema<Shape extends ShapeSchema> extends Schema<
 		return new ObjectSchema(shape);
 	}
 
-	_parse(value: unknown, message?: string) {
+	parseValue(value: unknown, message?: string) {
 		const defaultMessage = `${String(value)} is not an object`;
 
 		if (typeof value !== 'object' || !value || Array.isArray(value)) {
