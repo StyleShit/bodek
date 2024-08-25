@@ -5,7 +5,7 @@ export class StringSchema extends Schema<string> {
 		return new StringSchema();
 	}
 
-	_parse(value: unknown, message?: string) {
+	parseValue(value: unknown, message?: string) {
 		const defaultMessage = `${String(value)} is not a string`;
 
 		if (typeof value !== 'string') {
